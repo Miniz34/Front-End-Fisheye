@@ -3,6 +3,7 @@
 body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
+    
 }
 
 
@@ -11,7 +12,10 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    align-self: center;
     height: 90px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 h1 {
@@ -29,6 +33,8 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
     margin-top: 100px;
+    margin-left: -5%;
+
 }
 
 .photographer_section article {
@@ -42,10 +48,42 @@ h1 {
 .photographer_section article h2 {
     color: #D3573C;
     font-size: 36px;
+    margin-bottom: 0px;
 }
 
 
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    border-radius: 100px;
+}
+
+.photographer_section article p {
+  padding-top: -50px;
+ color: #901C1C;
+ font-family: 'DM Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 17px;
+/* identical to box height */
+
+text-align: center;
+
+}
+
+.photographer_section article span {
+
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 13px;
+/* identical to box height */
+
+text-align: center;
+
+color: #000000;
+
 }

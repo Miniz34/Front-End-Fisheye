@@ -7,6 +7,7 @@ function getPhotographers(callback) {
   // console.log(photographer)
 }
 
+
 function displayData(data) {
   const photographersSection = document.querySelector(".photographer_section");
   // photographers.media.map()
