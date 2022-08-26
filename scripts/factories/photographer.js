@@ -14,3 +14,5 @@ function photographerFactory(photographerData) {
   console.log(photographerData)
   return { ...photographerData, picture: `assets/photographers/${photographerData.portrait}` }
 }
+
+
