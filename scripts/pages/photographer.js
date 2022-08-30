@@ -1,18 +1,15 @@
+import { getPhotographers } from "../utils/database.js"
+import { photographerFactory, getUserCardDOM, getUserCardPicture } from "../factories/photographer.js"
+import { mediaFactory } from '../factories/media.js'
+
 const params = (new URL(document.location)).searchParams;
 const id = params.get("id")
-
-function getPhotographers(callback) {
-  // Penser à remplacer par les données récupérées dans le json
-  fetch("/data/photographers.json")
-    .then(response => response.json())
-    .then(data => callback(data))
-  // et bien retourner le tableau photographers seulement une fois
-  // console.log(photographer)
-}
 
 function displayPhotographer(data) {
   const photographersHeader = document.querySelector(".photograph-header")
   console.log(photographersHeader)
+  const test = document.querySelector(".contact_button")
+
   // data.photographers.map((photographer)
   console.log(data)
 
@@ -20,38 +17,43 @@ function displayPhotographer(data) {
   let thisPhotographer = mainPhotographer.find(e => e.id == id)
   console.log(thisPhotographer)
 
-
   const photographerModel = photographerFactory(thisPhotographer);
   console.log(photographerModel)
-  const userPhotographer = getPhotographer(photographerModel);
-  photographersHeader.appendChild(userPhotographer);
-
+  const userPhotographer = getUserCardDOM(photographerModel);
+  const userPicture = getUserCardPicture(photographerModel)
+  photographersHeader.insertBefore(userPhotographer, test);
+  photographersHeader.appendChild(userPicture)
 }
 
 
-function displayData(data) {
+
+function displayMedia(data) {
   const photographersSection = document.querySelector("main");
-  const photographersDiv = document.querySelector("photograph-header");
   // data.photographers.map((photographer)
   console.log(data)
   let allPortfolio = data.media
   console.log(allPortfolio)
   let thisPortfolio = allPortfolio.filter(i => i.photographerId == id)
   console.log(thisPortfolio)
+  const div = document.createElement('div');
+  div.classList.add("grid-photograph")
+  photographersSection.appendChild(div);
 
-  thisPortfolio.map((photographer) => {
-    const photographerModel = photographerFactory(photographer);
-    console.log(photographerModel)
-    const userCardDOM = getUserCardDOM(photographerModel);
-    photographersSection.appendChild(userCardDOM);
+  thisPortfolio.map((media) => {
+    const userCardDOM = mediaFactory(media);
+    div.appendChild(userCardDOM);
   })
 }
 
 
+function displayData(data) {
+  displayPhotographer(data);
+  displayMedia(data)
+}
+
 function init() {
   // Récupère les datas des photographes
   getPhotographers(displayData);
-  getPhotographers(displayPhotographer)
 };
 
 init();

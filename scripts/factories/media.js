@@ -1,37 +1,15 @@
-// function photographerFactory(photographerData) {
-//   // const { name, portrait, city, tagline } = data;
-//   console.log(photographerData)
-//   return { ...photographerData, picture: `assets/photographers/${photographerData.portrait}` }
-// }
+export const mediaFactory = (p) => {
+  const SRC_URL = `./assets/images/`;
 
-function getUserCardDOM(p) {
-  const picture = `assets/images/${p.image}`;
   const div = document.createElement('div');
-  const article = document.createElement('article');
-  article.classList.add("photo-list")
-  article.innerHTML = `<img src=${picture} alt="Photo nommé ${p.title}">
-                        <h3>${p.title}</h3>
-                        <span>prix: ${p.price}</span>
-                        <span> likes : ${p.likes}</span>`
-  return (article);
-}
+  div.classList.add("list-photograph")
+  let src = ""
+  if (p["video"]) src = `<video src=${SRC_URL + p.video} alt="Photo de  test"></video>`
+  else src = `<img src=${SRC_URL + p.image} alt="Photo de  test">`
 
-
-function getPhotographer(p) {
-  const picture = `assets/photographers/${p.portrait}`;
-  const div = document.createElement('div');
-
-  div.classList.add("main-photograph")
-
-  div.innerHTML = `<img src=${picture} alt="Photo de  test">
-                        <h3>${p.name}</h3>
-                        `
+  div.innerHTML = `${src}<h3>${p.title}</h3>
+  <span>prix: ${p.price}</span>
+  <span> likes : ${p.likes}</span>`
 
   return (div);
-}
-
-function photographerFactory(photographerData) {
-  // const { name, portrait, city, tagline } = data;
-  // console.log(photographerData)
-  return { ...photographerData, picture: `assets/photographers/${photographerData.portrait}` }
 }

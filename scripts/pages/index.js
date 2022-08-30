@@ -1,11 +1,5 @@
-function getPhotographers(callback) {
-  // Penser à remplacer par les données récupérées dans le json
-  fetch("/data/photographers.json")
-    .then(response => response.json())
-    .then(data => callback(data))
-  // et bien retourner le tableau photographers seulement une fois
-  // console.log(photographer)
-}
+import { getPhotographers } from "../utils/database.js"
+import { photographerFactory, getUserCardDOMIndex } from "../factories/photographer.js"
 
 
 function displayData(data) {
@@ -13,10 +7,11 @@ function displayData(data) {
   // photographers.media.map()
   data.photographers.map((photographer) => {
     const photographerModel = photographerFactory(photographer);
-    const userCardDOM = getUserCardDOM(photographerModel);
+    const userCardDOM = getUserCardDOMIndex(photographerModel);
     photographersSection.appendChild(userCardDOM);
   })
 };
+
 
 function init() {
   // Récupère les datas des photographes
