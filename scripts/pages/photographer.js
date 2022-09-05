@@ -1,5 +1,5 @@
 import { getPhotographers } from "../utils/database.js"
-import { photographerFactory, getUserCardDOM, getUserCardPicture } from "../factories/photographer.js"
+import { photographerFactory, getUserCardDOM, getUserCardPicture, getNameModal } from "../factories/photographer.js"
 import { mediaFactory } from '../factories/media.js'
 
 const params = (new URL(document.location)).searchParams;
@@ -8,6 +8,7 @@ const id = params.get("id")
 function displayPhotographer(data) {
   const photographersHeader = document.querySelector(".photograph-header")
   console.log(photographersHeader)
+
   const test = document.querySelector(".contact_button")
 
   // data.photographers.map((photographer)
@@ -23,12 +24,26 @@ function displayPhotographer(data) {
   const userPicture = getUserCardPicture(photographerModel)
   photographersHeader.insertBefore(userPhotographer, test);
   photographersHeader.appendChild(userPicture)
+
+}
+
+
+function displayNameModal(data) {
+
+  const modalTitle = document.querySelector(".modal-title")
+  const closeButton = document.querySelector(".close-button")
+  let mainPhotographer = data.photographers
+  let thisPhotographer = mainPhotographer.find(e => e.id == id)
+  console.log(thisPhotographer)
+  const photographerModel = photographerFactory(thisPhotographer);
+  const userModal = getNameModal(photographerModel)
+  modalTitle.insertBefore(userModal, closeButton)
 }
 
 
 
 function displayMedia(data) {
-  const photographersSection = document.querySelector("main");
+  const photographersSection = document.querySelector(".photo-wrapper");
   // data.photographers.map((photographer)
   console.log(data)
   let allPortfolio = data.media
@@ -48,7 +63,10 @@ function displayMedia(data) {
 
 function displayData(data) {
   displayPhotographer(data);
-  displayMedia(data)
+  displayMedia(data);
+  displayNameModal(data);
+  // displayImgLightbox(data);
+  sortData(data)
 }
 
 function init() {
@@ -59,58 +77,33 @@ function init() {
 init();
 
 
-// const photographerModel = photographerFactory(photographer);
-// const photographerCardDOM = getPhotographer(photographer)
-// photographersDiv.appendChild(photographerCardDOM)
+/////////////////////////////////////////////////////////
+//////////////////////   TRI     ///////////////////////
+////////////////////////////////////////////////////////
 
 
+function sortData(data) {
+  let allPortfolio = data.media
+  console.log(allPortfolio)
+  let thisPortfolio = allPortfolio.filter(i => i.photographerId == id)
+  console.log(thisPortfolio)
+  thisPortfolio.sort()
+}
 
 
+const popularity = document.querySelector(".popularity")
+const sortDate = document.querySelector(".date")
+const sortTitle = document.querySelector(".sort-title")
+popularity.addEventListener("click", event => {
+  event.preventDefault()
+  if ((sortDate.style.display = "none") && (sortTitle.style.display = "none")) {
+    sortDate.style.display = "block"
+    sortTitle.style.display = "block"
+  }
+  else if ((sortDate.style.display = "block") && (sortTitle.style.display = "block")) {
+    sortDate.style.display = "none"
+    sortTitle.style.display = "none"
+  } else {
 
-
-// function displayPhotographer(data) {
-//   const photographersSection = document.querySelector(".photograph-header");
-//   console.log(data)
-//   let mainPhotographer = data.photographers
-//   let thisPhotographer = mainPhotographer.find(e => e.id == id)
-//   console.log(thisPhotographer)
-
-//   const photographerTemplate = photographerFactory();
-//   console.log(photographerTemplate)
-//   const photographerCardDOM = getPhotographer(photographerTemplate);
-//   photographersHeader.appendChild(photographerCardDOM);
-// }
-
-// displayPhotographer()
-
-
-
-
-
-
-
-
-//Mettre le code JavaScript lié à la page photographer.html
-
-
-// function getPhotographer() {
-//   // Penser à remplacer par les données récupérées dans le json
-//   fetch("/data/photographers.json")
-//     .then(response => response.json())
-//     .then((data) => {
-//       let mainPhotographer = data.photographers
-//       let index = mainPhotographer.find(e => e.id == id)
-//       console.log(index)
-//     })
-//   // et bien retourner le tableau photographers seulement une fois
-//   // console.log(photographer)
-// }
-
-
-
-// function init() {
-//   // Récupère les datas des photographes
-//   getPhotographer();
-// };
-
-// init()
+  }
+})

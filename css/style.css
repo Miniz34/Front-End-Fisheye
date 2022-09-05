@@ -57,6 +57,7 @@ h1 {
     width: 200px;
     border-radius: 100px;
     object-fit: cover;
+    box-shadow: 0px 0px 2px grey;
 }
 
 .photographer_section article p {
@@ -105,53 +106,3 @@ color: #000000;
 
 /* Page photographes */
 
-
-.photograph-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-.photograph-header {
-  margin-bottom: 200px;
- }
- 
- .photograph-header img {
-   height: 200px;
- }
- 
-.list-photograph{
-  margin-left: 10%;
-}
-.list-photograph img {
-
-  width: 150px;
-  height: 150px;
- }
-
- video {
-  width: 150px;
-  height: 150px;
- }
-
-.grid-photograph {
-  /* display: flex;
-  flex-wrap: wrap; */
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-left: 14%;
-
-
-}
-
-#main {
-  position: relative;
-}
-
-#contact_modal {
-  position: sticky;
-  
-  
-  
- 
-}

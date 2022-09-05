@@ -1,7 +1,7 @@
 export const getUserCardDOM = (p) => {
   const article = document.createElement('div');
-  article.classList.add(".header-1")
-  article.innerHTML = `<h2><a href=./photographer.html?id=${p.id}>${p.name}</a></h2>
+  article.classList.add("header-1")
+  article.innerHTML = `<h2>${p.name}</h2>
                         <p>${p.city}, ${p.country}</p>
                         <span>${p.tagline}</span>`
 
@@ -11,11 +11,18 @@ export const getUserCardDOM = (p) => {
 export const getUserCardPicture = (p) => {
   const picture = `assets/photographers/${p.portrait}`;
   const article = document.createElement('div');
-  article.classList.add(".header-2")
-  article.innerHTML = `<img src=${picture} alt="miniature du photographe">
-                        `
+  article.classList.add("header-2")
+  article.innerHTML = `<img src=${picture} alt="miniature du photographe">`
 
   return (article)
+}
+
+export const getNameModal = (p) => {
+  const nameModal = document.createElement('h2')
+  nameModal.innerHTML = `Contactez moi <br>${p.name}`
+
+  return (nameModal)
+
 }
 
 // const newArticle = document.createElement("div")
