@@ -16,27 +16,19 @@ export const mediaFactory = (p) => {
   <p class="title">${p.title}</p>
   
   <button class="like-button">
-            ${p.likes}<img src="assets/icons/heart.svg"/>
-          </button>  
+  ${p.likes}<img src="assets/icons/heart.svg"/>
+</button>  
   </div>
+
   `
 
   return (div);
-
 }
 
 
 
-// function callBackMedia(callback) {
-//   callback(mediaFactory)
-// }
-// callBackMedia()
 
 
-
-/* <button class="close-button">
-  <img src="assets/icons/close.svg" onclick="closeModal()" />
-</button> */
 
 
 

@@ -6,3 +6,5 @@ export const getPhotographers = (callback) => {
   // et bien retourner le tableau photographers seulement une fois
   // console.log(photographer)
 }
+
+

@@ -54,8 +54,8 @@ z-index: 11;
 }
 
 .lightbox-img {
-  /* width: 1500px;
-  height: 1000px; */
+  width: 80%;
+  height: 80%;
   
   object-fit: contain;
 
