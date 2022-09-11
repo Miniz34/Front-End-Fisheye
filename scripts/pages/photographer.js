@@ -9,19 +9,19 @@ const id = params.get("id")
 
 function displayPhotographer(data) {
   const photographersHeader = document.querySelector(".photograph-header")
-  console.log(photographersHeader)
+  // console.log(photographersHeader)
 
   const test = document.querySelector(".contact_button")
 
   // data.photographers.map((photographer)
-  console.log(data)
+  // console.log(data)
 
   let mainPhotographer = data.photographers
   let thisPhotographer = mainPhotographer.find(e => e.id == id)
-  console.log(thisPhotographer)
+  // console.log(thisPhotographer)
 
   const photographerModel = photographerFactory(thisPhotographer);
-  console.log(photographerModel)
+  // console.log(photographerModel)
   const userPhotographer = getUserCardDOM(photographerModel);
   const userPicture = getUserCardPicture(photographerModel)
   photographersHeader.insertBefore(userPhotographer, test);
@@ -36,7 +36,7 @@ function displayNameModal(data) {
   const closeButton = document.querySelector(".close-button")
   let mainPhotographer = data.photographers
   let thisPhotographer = mainPhotographer.find(e => e.id == id)
-  console.log(thisPhotographer)
+  // console.log(thisPhotographer)
   const photographerModel = photographerFactory(thisPhotographer);
   const userModal = getNameModal(photographerModel)
   modalTitle.insertBefore(userModal, closeButton)
@@ -45,14 +45,14 @@ function displayNameModal(data) {
 
 
 function displayMedia(data) {
-  data.date = new Date(data.date)
+  // data.date = new Date(data.date)
   const photographersSection = document.querySelector(".photo-wrapper");
   // data.photographers.map((photographer)
-  console.log(data)
+  // console.log(data)
   let allPortfolio = data.media
-  console.log(allPortfolio)
+  // console.log(allPortfolio)
   let thisPortfolio = allPortfolio.filter(i => i.photographerId == id)
-  console.log(thisPortfolio)
+  // console.log(thisPortfolio)
   const div = document.createElement('div');
   div.classList.add("grid-photograph")
   photographersSection.appendChild(div);
@@ -61,20 +61,23 @@ function displayMedia(data) {
     div.appendChild(userCardDOM);
 
   })
+
+
+
 }
 
 
-
-
+let cardArr = []
+let likesCount = []
+let date = []
+let title = []
 
 function displayData(data) {
   displayPhotographer(data);
   displayMedia(data);
   displayNameModal(data);
+  sortData(data)
   // displayImgLightbox(data);
-  sort(data)
-
-
 
   // ici tout est chargé
   lightbox.addListeners(document.querySelectorAll(".thumbnail-image"))
@@ -85,23 +88,96 @@ function displayData(data) {
   likes.test(document.querySelectorAll(".like-button"))
   likes.log()
 
-  addLikes(data)
+  let dom = document.querySelector(".grid-photograph")
+  let cards = dom.childNodes
+  console.log(dom)
+  console.log(cards)
 
-  // const media = data.media
-  // media.forEach(element => {
-  //   console.log(element.likes)
-  // });
+  function sortData(data) {
+
+    const div = document.querySelector('.grid-photograph');
+    let media = data.media
+    console.log(media)
+    let thisMedia = media.filter(k => k.photographerId == id)
+    console.log(thisMedia)
+    thisMedia.forEach(element => {
+      title.push(element.title)
+    });
+    console.log(title)
 
 
-  // likes.add()
-  // const newLike = likes.add()
-  // const addLike = document.querySelectorAll(".photo-text")
-  // console.log(addLike)
-  // addLike.forEach(item => {
-  //   item.appendChild(newLike)
-  // })
+    const sortPopularity = document.querySelector(".popularity")
+    const sortDate = document.querySelector(".date")
+    const sortTitle = document.querySelector(".sort-title")
 
+    sortPopularity.addEventListener("click", event => {
+      event.preventDefault()
+      if (sortDate.classList.contains("hide")) {
+        sortDate.classList.remove("hide")
+        sortTitle.classList.remove("hide")
+      } else {
+        thisMedia.sort((a, b) => b.likes - a.likes)
+        console.log(cards)
+        console.log(thisMedia)
+        console.log("populaire")
+        sortPopularity.classList.remove("hide-img")
+        sortDate.classList.add("hide", "hide-img")
+        sortTitle.classList.add("hide", "hide-img")
+        thisMedia.map((media) => {
+          const userCardDOM = mediaFactory(media);
+          div.appendChild(userCardDOM);
+        })
+      }
+    })
+
+    ///Trié par ID en attendant 
+    sortDate.addEventListener("click", event => {
+      event.preventDefault()
+      if (sortPopularity.classList.contains("hide")) {
+        sortPopularity.classList.remove("hide")
+        sortTitle.classList.remove("hide")
+        sortDate.classList.add("border")
+
+
+      } else {
+        thisMedia.sort((a, b) => b.id - a.id)
+        console.log(thisMedia)
+        console.log("date mais en fait id")
+        sortDate.classList.remove("hide-img", "border")
+        sortPopularity.classList.add("hide", "hide-img")
+        sortTitle.classList.add("hide", "hide-img")
+      }
+
+      thisMedia.map((media) => {
+        const userCardDOM = mediaFactory(media);
+        div.appendChild(userCardDOM);
+      })
+
+    })
+    sortTitle.addEventListener("click", event => {
+      event.preventDefault()
+      if (sortPopularity.classList.contains("hide")) {
+        sortPopularity.classList.remove("hide")
+        sortDate.classList.remove("hide")
+        sortTitle.classList.add("border")
+
+      } else {
+        thisMedia.sort((a, b) => b.title - a.title)
+        console.log(thisMedia)
+        console.log("titre")
+        sortTitle.classList.remove("hide-img", "border")
+        sortPopularity.classList.add("hide", "hide-img")
+        sortDate.classList.add("hide", "hide-img")
+        thisMedia.map((media) => {
+          const userCardDOM = mediaFactory(media);
+          div.appendChild(userCardDOM);
+        })
+      }
+    })
+  }
 }
+
+
 
 
 function init() {
@@ -116,45 +192,47 @@ function init() {
 init();
 
 
-/////////////////////////////////////////////////////////
-//////////////////////   TRI     ///////////////////////
-////////////////////////////////////////////////////////
 
 
 
-function sortData(data) {
-  let allMedia = data.media
-  let thisPortfolio = allMedia.filter(i => i.photographerId == id)
-  thisPortfolio.sort((a, b) => b.likes - a.likes)
-  console.log(thisPortfolio)
-}
+// LIKES
 
-function sort(data) {
-  const popularity = document.querySelector(".popularity")
-  const sortDate = document.querySelector(".date")
-  const sortTitle = document.querySelector(".sort-title")
-  popularity.addEventListener("click", event => {
-    event.preventDefault()
-    sortData(data)
-    sortDate.style.display = "block"
-    sortTitle.style.display = "block"
-  })
-}
+
+
+
 
 
 function addLikes(data) {
   let allMedia = data.media
-  console.log(allMedia)
+  // console.log(allMedia)
   let thisMedia = allMedia.filter(i => i.photographerId == id)
-  console.log(thisMedia)
+  // console.log(thisMedia)
   thisMedia.forEach(item => {
 
     const buttonLike = document.querySelectorAll(".like-button")
     buttonLike.forEach(button => {
       button.onclick = event => {
-        console.log("cliquer sur" + item.likes)
+        // console.log("cliquer sur" + item.likes)
       }
     })
   })
 
 }
+
+
+
+// const card = document.querySelectorAll(".list-photograph");
+// cardArr.push(card)
+
+// console.log(card)
+// console.log(cardArr)
+// div.remove(card)
+
+
+// likes.add()
+  // const newLike = likes.add()
+  // const addLike = document.querySelectorAll(".photo-text")
+  // console.log(addLike)
+  // addLike.forEach(item => {
+  //   item.appendChild(newLike)
+  // })

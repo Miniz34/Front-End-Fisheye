@@ -168,7 +168,6 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
-
 }
 
 .list-photograph {
@@ -245,7 +244,10 @@ video {
 .sort {
   position: absolute;
   display: flex; 
+
 }
+
+
 
 .sort-option {
   list-style: none;
@@ -253,26 +255,58 @@ video {
   padding-left: 15px;
   padding-right: 15px;
   margin-left: 20px;
-  
+ 
+
 }
+
+/* .sort-option :nth-child(1) { order: 1; }
+.sort-option :nth-child(2) { order: 2; }
+.sort-option :nth-child(3) { order: 3; } */
+
+
+
+
+
+.hide {
+ 
+  display: none;
+  border-top: 1px solid white;
+  padding-top: 15px;
+}  
+
+.hide-img .arrow {
+  display: none;
+}
+
+
+
+
 
 ul {
   margin-top: -0px;
+  width: 120px;
+}
+
+li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.border {
+  border-top: 2px solid white;
+  padding-top: 15px;
 }
 
 .sort-option a {
   text-decoration: none;
   color: white;
-  border-bottom: 1px solid white;
   margin: 2px;
+  width: 150px;
 
 }
 
-.border {
-  border-top: 1px solid white;
-  padding-top: 15px;
 
-}
 
 .sort-option img {
   transform: rotate(270deg);
@@ -282,6 +316,5 @@ ul {
   width: 21px;
 }
 
-.date, .sort-title {
-  display: none;
-} 
+
+

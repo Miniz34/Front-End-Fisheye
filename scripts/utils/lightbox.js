@@ -38,7 +38,7 @@ const LightBox = {
         console.log(item.src)
         const newSrc = item.src
         const split = newSrc.split("/")[6]
-        const bigSrc = "http://172.24.48.1:5555/assets/images/" + split
+        const bigSrc = "../assets/images/" + split
         LightBox.display(bigSrc)
         LightBox.arrayImg()
       }
@@ -65,7 +65,7 @@ const LightBox = {
     // console.log(hello)
     nextButton.onclick = event => {
       console.log("bonjours")
-      LightBox.display("http://172.24.48.1:5555/assets/images/Animals_Rainbow.jpg")
+      LightBox.display("../assets/images/Animals_Rainbow.jpg")
     }
   },
 
@@ -74,7 +74,7 @@ const LightBox = {
     // console.log(hello)
     previousButton.onclick = event => {
       console.log("bonjours")
-      LightBox.display("http://172.24.48.1:5555/assets/images/Travel_HillsideColor.jpg")
+      LightBox.display("../assets/images/Travel_HillsideColor.jpg")
       console.log(src)
     }
   }
