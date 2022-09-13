@@ -1,5 +1,6 @@
 
 export const mediaFactory = (p) => {
+  if (!p.hasOwnProperty("title")) console.error("MEDIA PAS BON", p)
   const SRC_URL = `./assets/images/`;
   const SRC_URL_THUMBNAIL = `./assets/images/miniatures/`
 
@@ -17,6 +18,7 @@ export const mediaFactory = (p) => {
   
   <button class="like-button">
   ${p.likes}<img src="assets/icons/heart.svg"/>
+  <span>${p.date}</span>
 </button>  
   </div>
 

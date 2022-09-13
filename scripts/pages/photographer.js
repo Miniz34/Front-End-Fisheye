@@ -58,19 +58,54 @@ function displayMedia(data) {
   photographersSection.appendChild(div);
   thisPortfolio.map((media) => {
     const userCardDOM = mediaFactory(media);
+    userCardDOM.setAttribute("id", "" + media.id)
+    userCardDOM.id = "" + media.id;
+    MAP_MEDIA.set("" + media.id, media)
     div.appendChild(userCardDOM);
-
   })
-
-
-
 }
-
 
 let cardArr = []
 let likesCount = []
 let date = []
 let title = []
+
+const MAP_MEDIA = new Map();
+
+// by date
+const sortByDate = (list, order = 1) => {
+  return list.sort((a, b) => {
+    const ma = MAP_MEDIA.get("" + a.id).date
+    const mb = MAP_MEDIA.get("" + b.id).date
+    return (new Date(ma).getTime() - new Date(mb).getTime()) * order
+  })
+}
+
+// by likes
+const sortByLikes = (list, order = 1) => {
+  return list.sort((a, b) => {
+    const ma = MAP_MEDIA.get("" + a.id).likes
+    const mb = MAP_MEDIA.get("" + b.id).likes
+    return (ma - mb) * order;
+  })
+}
+
+// by title
+const sortByTitle = (list, order = 1) => {
+  console.log(MAP_MEDIA.get("" + list[0].id))
+
+  return list.sort((a, b) => {
+    const ma = MAP_MEDIA.get("" + a.id).title;
+    const mb = MAP_MEDIA.get("" + b.id).title;
+    return (ma.localeCompare(mb)) * order;
+  })
+}
+
+const Sens = {
+  title: 1,
+  date: 1,
+  likes: 1
+}
 
 function displayData(data) {
   displayPhotographer(data);
@@ -175,18 +210,27 @@ function displayData(data) {
       }
     })
   }
+
+  const elem = document.querySelector(".newtri");
+  elem.onclick = () => {
+    console.log("%cTRIAGE EN COURS", "color:green; font-size:25px;")
+    const div = document.querySelector('.grid-photograph');
+    const list = [...div.querySelectorAll('.list-photograph')];
+    list.map(elem => div.removeChild(elem));
+    Sens.title = -Sens.title; sortByTitle(list, Sens.title);
+    list.map(elem => div.appendChild(elem));
+  }
 }
 
 
 
 
 function init() {
-  const elem = lightbox.create()
-  document.querySelector("body").appendChild(elem);
-
+  document.querySelector("body").appendChild(lightbox.create());
 
   // Récupère les datas des photographes
   getPhotographers(displayData);
+
 };
 
 init();

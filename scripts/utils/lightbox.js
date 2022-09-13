@@ -1,6 +1,9 @@
 let src = []
 
 const LightBox = {
+  list: [],
+  index: -1,
+
   create: () => {
     const element = document.createElement("div");
     element.setAttribute('id', "lightbox");
@@ -10,9 +13,9 @@ const LightBox = {
       <button class="lightbox-next"> <img src="assets/icons/arrow.svg" /></button>
       <button class="lightbox-prev"> <img src="assets/icons/arrow.svg" /></button>
       <div class="lightbox-container">
-        <img src="" alt="Photographie" class="lightbox-img">
+        <img src="" alt="Photographie" id="lightbox-img">
+        <video src="" alt="Photographie" id="lightbox-video" controls autoplay>
         <h2 class="title-lightbox">Titre filler</h2>
-        <!-- <img src="https://picsum.photos/900/900" alt="Photographie"> -->
       </div>`
     element.querySelector(".lightbox-close").onclick = (event) => { LightBox.close(); }
     return element;
@@ -20,52 +23,55 @@ const LightBox = {
 
   getLightbox: () => { return document.getElementById("lightbox") },
 
-  getLightboxImage: () => { return document.querySelector(".lightbox-img") },
+  display: (item) => {
+    LightBox.getLightbox().style.display = "block"
 
-  display: (src) => {
-    document.getElementById("lightbox").style.display = "block"
-    document.querySelector(".lightbox-img").src = src
+    switch (item.type) {
+      case "IMG":
+        document.getElementById("lightbox-video").style.display = "none"
+        document.getElementById("lightbox-img").src = "./assets/images/" + item.src
+        document.getElementById("lightbox-img").style.display = "block"
+        break;
 
+      case "VIDEO":
+        document.getElementById("lightbox-img").style.display = "none"
+        document.getElementById("lightbox-video").src = "./assets/images/" + item.src
+        document.getElementById("lightbox-video").style.display = "block"
+        break;
+    }
   },
 
   close: () => { document.getElementById("lightbox").style.display = "none" },
 
   addListeners: (selectors, callback = (event, item) => { console.log(item.src); }) => {
-    console.log(selectors.src);
-    selectors.forEach(item => {
+    [...selectors].map(item => {
       item.onclick = event => {
         callback(event, item)
-        console.log(item.src)
-        const newSrc = item.src
-        const split = newSrc.split("/")[6]
-        const bigSrc = "../assets/images/" + split
-        LightBox.display(bigSrc)
-        LightBox.arrayImg()
+        const fileName = item.src.split("/").slice(-1)[0];
+        LightBox.display({ src: fileName, type: item.tagName })
+        LightBox.arrayImg(fileName)
       }
     })
   },
 
   ////mon nouveau "code"
 
-  arrayImg: () => {
-    const image = document.querySelectorAll(".thumbnail-image")
-    console.log(image)
-
-    image.forEach(item => {
-      const link = item.getAttribute("src")
-      src.push(link)
-    })
-    console.log(src)
-    return src
-
+  arrayImg: (pFileName) => {
+    const array = [...document.querySelectorAll(".thumbnail-image")];
+    LightBox.list = array.map((elem, index) => {
+      const fileName = elem.src.split('/').slice(-1)[0];
+      if (fileName === pFileName) LightBox.index = index
+      return { src: fileName, type: elem.tagName }
+    });
   },
 
   next: (nextButton) => {
     // const hello = LightBox.arrayImg()
     // console.log(hello)
     nextButton.onclick = event => {
-      console.log("bonjours")
-      LightBox.display("../assets/images/Animals_Rainbow.jpg")
+      LightBox.index++;
+      if (LightBox.index >= LightBox.list.length) LightBox.index = 0;
+      LightBox.display(LightBox.list[LightBox.index]);
     }
   },
 
@@ -73,24 +79,12 @@ const LightBox = {
     // const hello = LightBox.arrayImg()
     // console.log(hello)
     previousButton.onclick = event => {
-      console.log("bonjours")
-      LightBox.display("../assets/images/Travel_HillsideColor.jpg")
-      console.log(src)
+      LightBox.index--;
+      if (LightBox.index < 0) LightBox.index = LightBox.list.length - 1;
+      LightBox.display(LightBox.list[LightBox.index]);
     }
   }
 
-
 }
-
-
-
-
-
-// nextButton.onclick = event => {
-//   console.log("bonjours")
-//   console.log(src)
-//   LightBox.display("http://172.24.48.1:5555/assets/images/Animals_Rainbow.jpg")
-// }
-
 
 export default LightBox;
