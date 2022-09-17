@@ -5,6 +5,8 @@ export const getUserCardDOM = (p) => {
                         <p>${p.city}, ${p.country}</p>
                         <span>${p.tagline}</span>`
 
+
+
   return (article)
 }
 
@@ -22,6 +24,17 @@ export const getNameModal = (p) => {
   nameModal.innerHTML = `Contactez moi <br>${p.name}`
 
   return (nameModal)
+
+}
+
+export const getOverlayPrice = (p) => {
+  const overlayPrice = document.createElement('div')
+  overlayPrice.innerHTML = `<div class= "overlay-like-price">
+  <span>${p.likes} </span>
+  <span><img class="black-heart" src="assets/icons/heart-black.svg"/></span>
+  <span>${p.price}€ / jour</span>
+  </div>`
+  return (overlayPrice)
 
 }
 

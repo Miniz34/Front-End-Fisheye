@@ -17,10 +17,12 @@ export const mediaFactory = (p) => {
   <p class="title">${p.title}</p>
   
   <button class="like-button">
-  ${p.likes}<img src="assets/icons/heart.svg"/>
+ <p class="like-count" id = "like-count"> ${p.likes}</p><img src="assets/icons/heart.svg"/>
   <span>${p.date}</span>
 </button>  
   </div>
+
+
 
   `
 

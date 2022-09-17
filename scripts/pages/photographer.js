@@ -1,5 +1,5 @@
 import { getPhotographers } from "../utils/database.js"
-import { photographerFactory, getUserCardDOM, getUserCardPicture, getNameModal } from "../factories/photographer.js"
+import { photographerFactory, getUserCardDOM, getUserCardPicture, getNameModal, getOverlayPrice } from "../factories/photographer.js"
 import { mediaFactory } from '../factories/media.js'
 import lightbox from "../utils/lightbox.js";
 import likes from "../utils/likes.js"
@@ -26,6 +26,19 @@ function displayPhotographer(data) {
   const userPicture = getUserCardPicture(photographerModel)
   photographersHeader.insertBefore(userPhotographer, test);
   photographersHeader.appendChild(userPicture)
+
+
+}
+
+function displayOverlay(data) {
+  const photographer = document.querySelector("body")
+  console.log(photographer)
+  let mainPhotographer = data.photographers
+  let thisPhotographer = mainPhotographer.find(e => e.id == id)
+  const photographerModel = photographerFactory(thisPhotographer);
+  console.log(photographerModel)
+  const photographerOverlay = getOverlayPrice(photographerModel)
+  photographer.appendChild(photographerOverlay)
 
 }
 
@@ -107,11 +120,34 @@ const Sens = {
   likes: 1
 }
 
+function pushLike() {
+  let button = document.querySelectorAll(".like-button")
+  let testArr = Array.from(button)
+  testArr.map(like => {
+    console.log(like)
+  })
+  let testlike = document.querySelectorAll(".like-count")
+  console.log(testlike[0])
+  button.forEach(item => {
+    item.addEventListener("click", event => {
+      console.log("hello")
+      console.log(button)
+    })
+  })
+
+}
+
+pushLike()
+
 function displayData(data) {
   displayPhotographer(data);
   displayMedia(data);
   displayNameModal(data);
+  displayOverlay(data);
   sortData(data)
+  addLikes(data)
+  pushLike()
+
   // displayImgLightbox(data);
 
   // ici tout est chargé
@@ -123,10 +159,6 @@ function displayData(data) {
   likes.test(document.querySelectorAll(".like-button"))
   likes.log()
 
-  let dom = document.querySelector(".grid-photograph")
-  let cards = dom.childNodes
-  console.log(dom)
-  console.log(cards)
 
   function sortData(data) {
 
@@ -151,17 +183,26 @@ function displayData(data) {
         sortDate.classList.remove("hide")
         sortTitle.classList.remove("hide")
       } else {
-        thisMedia.sort((a, b) => b.likes - a.likes)
-        console.log(cards)
-        console.log(thisMedia)
-        console.log("populaire")
+        console.log("%cTRIAGE EN COURS", "color:green; font-size:25px;")
+        const div = document.querySelector('.grid-photograph');
+        const list = [...div.querySelectorAll('.list-photograph')];
+        list.map(elem => div.removeChild(elem));
+        Sens.likes = -Sens.likes; sortByLikes(list, Sens.likes);
+        list.map(elem => div.appendChild(elem));
         sortPopularity.classList.remove("hide-img")
         sortDate.classList.add("hide", "hide-img")
         sortTitle.classList.add("hide", "hide-img")
-        thisMedia.map((media) => {
-          const userCardDOM = mediaFactory(media);
-          div.appendChild(userCardDOM);
-        })
+
+        console.log(Sens.likes)
+
+        //Pour changer direction de la flêche : 
+        //Créer classe avec rotate 180
+        // if (sense.likes = 1) {
+        // sortPopularity.classList.add("roateclass")
+        // } else {
+        // rien
+        // }
+
       }
     })
 
@@ -173,20 +214,17 @@ function displayData(data) {
         sortTitle.classList.remove("hide")
         sortDate.classList.add("border")
 
-
       } else {
-        thisMedia.sort((a, b) => b.id - a.id)
-        console.log(thisMedia)
-        console.log("date mais en fait id")
+        console.log("%cTRIAGE EN COURS", "color:green; font-size:25px;")
+        const div = document.querySelector('.grid-photograph');
+        const list = [...div.querySelectorAll('.list-photograph')];
+        list.map(elem => div.removeChild(elem));
+        Sens.date = -Sens.date; sortByDate(list, Sens.date);
+        list.map(elem => div.appendChild(elem));
         sortDate.classList.remove("hide-img", "border")
         sortPopularity.classList.add("hide", "hide-img")
         sortTitle.classList.add("hide", "hide-img")
       }
-
-      thisMedia.map((media) => {
-        const userCardDOM = mediaFactory(media);
-        div.appendChild(userCardDOM);
-      })
 
     })
     sortTitle.addEventListener("click", event => {
@@ -197,29 +235,39 @@ function displayData(data) {
         sortTitle.classList.add("border")
 
       } else {
-        thisMedia.sort((a, b) => b.title - a.title)
-        console.log(thisMedia)
-        console.log("titre")
+        console.log("%cTRIAGE EN COURS", "color:green; font-size:25px;")
+        const div = document.querySelector('.grid-photograph');
+        const list = [...div.querySelectorAll('.list-photograph')];
+        list.map(elem => div.removeChild(elem));
+        Sens.title = -Sens.title; sortByTitle(list, Sens.title);
+        list.map(elem => div.appendChild(elem));
         sortTitle.classList.remove("hide-img", "border")
         sortPopularity.classList.add("hide", "hide-img")
         sortDate.classList.add("hide", "hide-img")
-        thisMedia.map((media) => {
-          const userCardDOM = mediaFactory(media);
-          div.appendChild(userCardDOM);
-        })
       }
     })
   }
 
-  const elem = document.querySelector(".newtri");
-  elem.onclick = () => {
-    console.log("%cTRIAGE EN COURS", "color:green; font-size:25px;")
-    const div = document.querySelector('.grid-photograph');
-    const list = [...div.querySelectorAll('.list-photograph')];
-    list.map(elem => div.removeChild(elem));
-    Sens.title = -Sens.title; sortByTitle(list, Sens.title);
-    list.map(elem => div.appendChild(elem));
+  function addLikes(data) {
+    console.log("test like")
+    let likes = document.querySelectorAll(".like-button")
+    let allMedia = data.media
+    console.log(allMedia)
+    let thisMedia = allMedia.filter(k => k.photographerId == id)
+    thisMedia.map(elem => {
+      localStorage.setItem(elem.id, elem.likes)
+    })
+    console.log(thisMedia)
+
+
   }
+
+  // const test = document.querySelector(".newtri")
+  // test.addEventListener("click", event => {
+  //   addLikes(data)
+  // })
+
+
 }
 
 
@@ -227,12 +275,9 @@ function displayData(data) {
 
 function init() {
   document.querySelector("body").appendChild(lightbox.create());
-
   // Récupère les datas des photographes
   getPhotographers(displayData);
-
 };
-
 init();
 
 
@@ -244,24 +289,32 @@ init();
 
 
 
-
-
-function addLikes(data) {
-  let allMedia = data.media
-  // console.log(allMedia)
-  let thisMedia = allMedia.filter(i => i.photographerId == id)
-  // console.log(thisMedia)
-  thisMedia.forEach(item => {
-
-    const buttonLike = document.querySelectorAll(".like-button")
-    buttonLike.forEach(button => {
-      button.onclick = event => {
-        // console.log("cliquer sur" + item.likes)
-      }
-    })
-  })
-
+const Likes = (list) => {
+  console.log(MAP_MEDIA)
 }
+
+Likes()
+
+
+// function addLikes(data) {
+//   let allMedia = data.media
+//   console.log(allMedia)
+//   let thisMedia = allMedia.filter(i => i.photographerId == id)
+//   console.log(thisMedia)
+//   thisMedia.forEach(item => {
+
+//     const buttonLike = document.querySelectorAll(".like-button")
+//     buttonLike.forEach(button => {
+//       button.onclick = event => {
+//         console.log("cliquer sur" + item.likes)
+//       }
+//     })
+//   })
+// }
+
+// addLikes(data)
+
+
 
 
 
@@ -280,3 +333,17 @@ function addLikes(data) {
   // addLike.forEach(item => {
   //   item.appendChild(newLike)
   // })
+
+
+
+
+  //Modèle tri
+  // const elem = document.querySelector(".newtri");
+  // elem.onclick = () => {
+  //   console.log("%cTRIAGE EN COURS", "color:green; font-size:25px;")
+  //   const div = document.querySelector('.grid-photograph');
+  //   const list = [...div.querySelectorAll('.list-photograph')];
+  //   list.map(elem => div.removeChild(elem));
+  //   Sens.title = -Sens.title; sortByTitle(list, Sens.title);
+  //   list.map(elem => div.appendChild(elem));
+  // }
