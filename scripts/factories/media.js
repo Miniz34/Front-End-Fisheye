@@ -10,21 +10,16 @@ export const mediaFactory = (p) => {
   if (p["video"]) src = `<video src=${SRC_URL + p.video} class="thumbnail-image" alt="Photo de  test"></video>`
   else src = `<img src=${SRC_URL_THUMBNAIL + p.image} class="thumbnail-image" alt="Photo de  test">`
 
-  div.innerHTML = `<a class="img-link">${src} 
-  </a>
+  div.innerHTML = `
+  <a class="img-link">${src}</a>
   <div class="photo-text">
-  
-  <p class="title">${p.title}</p>
-  
-  <button class="like-button">
- <p class="like-count" id = "like-count"> ${p.likes}</p><img src="assets/icons/heart.svg"/>
-  <span>${p.date}</span>
-</button>  
-  </div>
-
-
-
-  `
+    <p class="title">${p.title}</p>
+    <button class="like-button">
+      <p class="like-count" id="like-count-${p.id}"> ${p.likes}</p>
+      <img src="assets/icons/heart.svg"/>
+      <span>${p.date}</span>
+    </button>
+  </div>`
 
   return (div);
 }

@@ -298,11 +298,10 @@ video {
 
 
 .hide {
- 
   display: none;
   border-top: 1px solid white;
   padding-top: 15px;
-}  
+}
 
 .hide-img .arrow {
   display: none;
