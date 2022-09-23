@@ -26,17 +26,28 @@ const LightBox = {
   display: (item) => {
     LightBox.getLightbox().style.display = "block"
 
+
+    const main = document.querySelector("#main");
+    const LB = document.querySelector("#lightbox")
+
+    main.setAttribute('aria-hidden', 'true')
+
     switch (item.type) {
       case "IMG":
         document.getElementById("lightbox-video").style.display = "none"
         document.getElementById("lightbox-img").src = "./assets/images/" + item.src
         document.getElementById("lightbox-img").style.display = "block"
+        LB.setAttribute('aria-hidden', 'false')
+        LB.setAttribute('aria-modal', 'true')
+
+        main.setAttribute('aria-hidden', 'true')
         break;
 
       case "VIDEO":
         document.getElementById("lightbox-img").style.display = "none"
         document.getElementById("lightbox-video").src = "./assets/images/" + item.src
         document.getElementById("lightbox-video").style.display = "block"
+        main.setAttribute('aria-hidden', 'true')
         break;
     }
   },
@@ -53,6 +64,8 @@ const LightBox = {
       }
     })
   },
+
+
 
   ////mon nouveau "code"
 
@@ -73,18 +86,51 @@ const LightBox = {
       if (LightBox.index >= LightBox.list.length) LightBox.index = 0;
       LightBox.display(LightBox.list[LightBox.index]);
     }
+
   },
 
   previous: (previousButton) => {
     // const hello = LightBox.arrayImg()
     // console.log(hello)
     previousButton.onclick = event => {
+      console.log("press boutton")
       LightBox.index--;
       if (LightBox.index < 0) LightBox.index = LightBox.list.length - 1;
       LightBox.display(LightBox.list[LightBox.index]);
     }
-  }
 
+  }
 }
+
+
+
+// next: (nextButton) => {
+//   // const hello = LightBox.arrayImg()
+//   // console.log(hello)
+//   nextButton.onclick = event => {
+//     LightBox.index++;
+//     if (LightBox.index >= LightBox.list.length) LightBox.index = 0;
+//     LightBox.display(LightBox.list[LightBox.index]);
+//   }
+
+// },
+
+// previousButton.addEventListener("keydown", e => {
+//   console.log(e)
+//   if (e.key.toLocaleLowerCase() === "u") {
+//     console.log("press u")
+//     LightBox.index--;
+//     if (LightBox.index < 0) LightBox.index = LightBox.list.length - 1;
+//     LightBox.display(LightBox.list[LightBox.index]);
+//   }
+// })
+
+
+// document.addEventListener("keydown", e => {
+//   console.log(e)
+//   if (e.key.toLocaleLowerCase() === "u") {
+//     LightBox.previous
+//   }
+// })
 
 export default LightBox;

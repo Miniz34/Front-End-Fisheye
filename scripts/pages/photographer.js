@@ -7,6 +7,7 @@ import likes from "../utils/likes.js"
 const params = (new URL(document.location)).searchParams;
 const id = params.get("id")
 
+
 const likesMedia = (media) => {
 
   const likesLS = localStorage.getItem("likes")
@@ -65,6 +66,22 @@ function displayOverlay(data) {
   const photographerOverlay = getOverlayPrice(photographerModel)
   photographer.appendChild(photographerOverlay)
 
+}
+
+function displayTotalLikes(data) {
+  let mainPhotos = data.media
+  let allLikes = mainPhotos.filter(j => j.photographerId == id)
+  let likesCount = 0
+  let totalLikes = allLikes.map(function (likeList) {
+    likesCount = likesCount + likeList.likes
+    return likesCount
+  })
+  const overlayLikes = totalLikes[totalLikes.length - 1]
+  // const LS = localStorage.getItem("likes")
+  // let lsValue = LS.split(',');
+  // console.log(lsValue.length)
+  let domLikes = document.getElementById("totalLikes")
+  domLikes.innerHTML = overlayLikes
 }
 
 
@@ -168,8 +185,18 @@ function displayData(data) {
   displayMedia(data);
   displayNameModal(data);
   displayOverlay(data);
+  displayTotalLikes(data);
   sortData(data)
   // addLikes(data)
+
+  const next = document.querySelector(".lightbox-next")
+  const previous = document.querySelector(".lightbox-prev")
+  const close = document.querySelector(".lightbox-close")
+  const open2 = document.querySelectorAll("thumbnail-img")
+  console.log(open, open2)
+
+
+
 
   // displayImgLightbox(data);
 
@@ -178,9 +205,37 @@ function displayData(data) {
   lightbox.next(document.querySelector(".lightbox-next"))
   lightbox.previous(document.querySelector(".lightbox-prev"))
 
-  //test likes
-  likes.test(document.querySelectorAll(".like-button"))
-  likes.log()
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") {
+      next.click()
+      console.log("utilisation right")
+
+    }
+  })
+  document.addEventListener("keydown", e => {
+    if (e.key.toLocaleLowerCase() === "arrowleft") {
+      previous.click()
+      console.log("utilisation left")
+    }
+  })
+
+  document.addEventListener("keydown", e => {
+    if (e.key.toLocaleLowerCase() === "escape") {
+      lightbox.close()
+    }
+  })
+
+  // const open = document.querySelectorAll(".lightbox-img")
+
+  // document.addEventListener("keydown", e => {
+  //   if (e.key.toLocaleLowerCase() === "u") {
+  //     open.click()
+  //     console.log("press u")
+  //   }
+  // })
+
+
+
 
 
   function sortData(data) {
@@ -249,16 +304,7 @@ function displayData(data) {
     })
   }
 
-
-  // const test = document.querySelector(".newtri")
-  // test.addEventListener("click", event => {
-  //   addLikes(data)
-  // })
-
-
 }
-
-
 
 
 function init() {
@@ -269,63 +315,6 @@ function init() {
 
 init();
 
-
-
-
-
-// LIKES
-
-
-
-
-// function addLikes(data) {
-//   let allMedia = data.media
-//   console.log(allMedia)
-//   let thisMedia = allMedia.filter(i => i.photographerId == id)
-//   console.log(thisMedia)
-//   thisMedia.forEach(item => {
-
-//     const buttonLike = document.querySelectorAll(".like-button")
-//     buttonLike.forEach(button => {
-//       button.onclick = event => {
-//         console.log("cliquer sur" + item.likes)
-//       }
-//     })
-//   })
-// }
-
-// addLikes(data)
-
-
-
-
-
-// const card = document.querySelectorAll(".list-photograph");
-// cardArr.push(card)
-
-// console.log(card)
-// console.log(cardArr)
-// div.remove(card)
-
-
-// likes.add()
-  // const newLike = likes.add()
-  // const addLike = document.querySelectorAll(".photo-text")
-  // console.log(addLike)
-  // addLike.forEach(item => {
-  //   item.appendChild(newLike)
-  // })
-
-
-
-
-  //Modèle tri
-  // const elem = document.querySelector(".newtri");
-  // elem.onclick = () => {
-  //   console.log("%cTRIAGE EN COURS", "color:green; font-size:25px;")
-  //   const div = document.querySelector('.grid-photograph');
-  //   const list = [...div.querySelectorAll('.list-photograph')];
-  //   list.map(elem => div.removeChild(elem));
-  //   Sens.title = -Sens.title; sortByTitle(list, Sens.title);
-  //   list.map(elem => div.appendChild(elem));
-  // }
+document.addEventListener("keydown", e => {
+  console.log(e)
+})

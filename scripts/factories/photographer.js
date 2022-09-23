@@ -30,13 +30,13 @@ export const getNameModal = (p) => {
 export const getOverlayPrice = (p) => {
   const overlayPrice = document.createElement('div')
   overlayPrice.innerHTML = `<div class= "overlay-like-price">
-  <span>${p.likes} </span>
+  <span id="totalLikes"></span>
   <span><img class="black-heart" src="assets/icons/heart-black.svg"/></span>
   <span>${p.price}€ / jour</span>
   </div>`
   return (overlayPrice)
-
 }
+
 
 // const newArticle = document.createElement("div")
 // newArticle.classList.add(".header-2")

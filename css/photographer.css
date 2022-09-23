@@ -218,6 +218,11 @@ main {
   
 }
 
+.thumbnail-image:hover {
+  border: pink 4px solid;
+
+}
+
 video {
   width: 150px;
   height: 150px;
