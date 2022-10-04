@@ -5,14 +5,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
   z-index: 10;
 }
 
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    
 }
 
 .contact_button {
@@ -41,10 +40,11 @@
   text-align: center;
     border-radius: 5px;
     background-color: #DB8876;
-    width: 35%;
-    height: 900px;
+    width: 500px;
+    height: 950px;
     display: flex;
     flex-direction: column;
+    align-content: space-around;
     
 }
 
@@ -52,6 +52,13 @@
   margin-top: 40px;
   justify-content: space-around;
   width: 100%;
+  font-size: 14px;
+}
+
+.close-button {
+  background-color: #DB8876;
+  border: none;
+  margin-top: -40px;
 }
 
 .modal form {
@@ -64,23 +71,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  
-  
+  max-height: 100%;
+   
 }
 
 .modal-message {
-  height: 200px;
+  height: 100px;
   text-align: start;
 }
-
 
 .modal header img {
     cursor: pointer;
 }
 
 .modal header h2 {
-    font-size: 64px;
+    font-size: 48px;
     font-weight: normal;
 }
 
@@ -88,13 +93,16 @@ form {
     display: flex;
     width: 100%;
     flex-direction: column;
-    align-items: flex-start;
-    margin-top: 50px;
+    align-items: flex-start
 }
 
 form label {
     color: #312E2E;
     font-size: 36px;
+}
+
+.margin-top {
+  margin-top: 30px;
 }
 
 form div {
@@ -112,6 +120,9 @@ form input {
     border-radius: 5px;
 }
 
+.error-msg {
+  color: red
+}
 
 
 
@@ -151,7 +162,7 @@ main {
 
  .overlay-like-price {
   background-color: #DB8876;
-  width: 20%;
+  min-width: 250px;
   height: 50px;
   position: fixed;
   bottom: 0;
@@ -184,7 +195,7 @@ main {
    box-shadow: 0px 0px 2px grey; }
  
 .list-photograph{
-  margin-top: 12%;
+  margin-top: 40px;
   height: 600px;
   width: 25%;
 }
@@ -218,10 +229,14 @@ main {
   
 }
 
-.thumbnail-image:hover {
-  border: pink 4px solid;
+/* .thumbnail-image:hover {
+  transform: scale(1.05);
 
 }
+
+:focus {
+  transform: scale(1.05);
+} */
 
 video {
   width: 150px;
@@ -277,12 +292,18 @@ video {
 .sort {
   position: absolute;
   display: flex; 
-  margin-left: 7%;
+  flex-direction: row;
+ 
+  margin-left: 40px;
   
 
 }
 
-
+.sort p {
+  padding-top: 12px;
+  font-weight: bold;
+  font-size: 20px;
+}
 
 .sort-option {
   list-style: none;
@@ -294,12 +315,9 @@ video {
 
 }
 
-/* .sort-option :nth-child(1) { order: 1; }
-.sort-option :nth-child(2) { order: 2; }
-.sort-option :nth-child(3) { order: 3; } */
-
-
-
+.zindex {
+  z-index: 9999
+}
 
 
 .hide {
@@ -317,14 +335,19 @@ video {
 
 
 ul {
-  margin-top: -0px;
   width: 120px;
+  padding-top : 10px;
+  padding-bottom: 10px
 }
 
 li {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  text-decoration: none;
+  color: white;
+  width: 120px;
+  margin-top: 6px;
 }
 
 .border {
@@ -332,20 +355,13 @@ li {
   padding-top: 15px;
 }
 
-.sort-option a {
-  text-decoration: none;
-  color: white;
-  margin: 2px;
-  width: 150px;
 
-}
 
 
 
 .sort-option img {
   transform: rotate(270deg);
-  margin-left: 10px;
-  padding-right: 10px;
+  padding-right: 0px;
   height: 16px;
   width: 21px;
 }

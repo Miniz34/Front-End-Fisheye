@@ -14,7 +14,7 @@ export const getUserCardPicture = (p) => {
   const picture = `assets/photographers/${p.portrait}`;
   const article = document.createElement('div');
   article.classList.add("header-2")
-  article.innerHTML = `<img src=${picture} alt="miniature du photographe">`
+  article.innerHTML = `<img src=${picture} alt="miniature de ${p.name}">`
 
   return (article)
 }
@@ -29,7 +29,7 @@ export const getNameModal = (p) => {
 
 export const getOverlayPrice = (p) => {
   const overlayPrice = document.createElement('div')
-  overlayPrice.innerHTML = `<div class= "overlay-like-price">
+  overlayPrice.innerHTML = `<div class= "overlay-like-price" inert>
   <span id="totalLikes"></span>
   <span><img class="black-heart" src="assets/icons/heart-black.svg"/></span>
   <span>${p.price}€ / jour</span>
@@ -45,7 +45,7 @@ export const getOverlayPrice = (p) => {
 export const getUserCardDOMIndex = (p) => {
   const picture = `assets/photographers/${p.portrait}`;
   const article = document.createElement('article');
-  article.innerHTML = `<img src=${picture} alt="miniature du photographe">
+  article.innerHTML = `<img src=${picture} alt="miniature de ${p.name}">
                         <h2><a href=./photographer.html?id=${p.id}>${p.name}</a></h2>
                         <p>${p.city}, ${p.country}</p>
                         <span>${p.tagline}</span>`

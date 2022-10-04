@@ -98,7 +98,6 @@ function displayNameModal(data) {
 }
 
 let LIKES = 0;
-
 function displayMedia(data) {
   // data.date = new Date(data.date)
   const photographersSection = document.querySelector(".photo-wrapper");
@@ -120,7 +119,6 @@ function displayMedia(data) {
       console.log("found")
       media.likes++;
     }
-
     const userCardDOM = mediaFactory(media);
     userCardDOM.setAttribute("id", "" + media.id)
     userCardDOM.id = "" + media.id;
@@ -131,6 +129,7 @@ function displayMedia(data) {
       console.log(pLike.textContent, media.likes)
       likesMedia(media)
       pLike.textContent = "" + media.likes;
+      displayTotalLikes(data)
     }
     div.appendChild(userCardDOM);
     LIKES += media.likes
@@ -142,6 +141,7 @@ let cardArr = []
 let likesCount = []
 let date = []
 let title = []
+
 
 const MAP_MEDIA = new Map();
 
@@ -193,8 +193,6 @@ function displayData(data) {
   const previous = document.querySelector(".lightbox-prev")
   const close = document.querySelector(".lightbox-close")
   const open2 = document.querySelectorAll("thumbnail-img")
-  console.log(open, open2)
-
 
 
 
@@ -206,37 +204,24 @@ function displayData(data) {
   lightbox.previous(document.querySelector(".lightbox-prev"))
 
   document.addEventListener("keydown", e => {
-    if (e.key === "ArrowRight") {
-      next.click()
-      console.log("utilisation right")
-
+    if (lightbox.opened()) {
+      console.log("light")
+      switch (e.key.toLowerCase()) {
+        case "arrowleft":
+          e.preventDefault()
+          previous.click()
+          break;
+        case "arrowright":
+          e.preventDefault()
+          next.click()
+          break;
+        case "escape":
+          e.preventDefault()
+          lightbox.close()
+          break;
+      }
     }
   })
-  document.addEventListener("keydown", e => {
-    if (e.key.toLocaleLowerCase() === "arrowleft") {
-      previous.click()
-      console.log("utilisation left")
-    }
-  })
-
-  document.addEventListener("keydown", e => {
-    if (e.key.toLocaleLowerCase() === "escape") {
-      lightbox.close()
-    }
-  })
-
-  // const open = document.querySelectorAll(".lightbox-img")
-
-  // document.addEventListener("keydown", e => {
-  //   if (e.key.toLocaleLowerCase() === "u") {
-  //     open.click()
-  //     console.log("press u")
-  //   }
-  // })
-
-
-
-
 
   function sortData(data) {
 
@@ -250,11 +235,14 @@ function displayData(data) {
     });
     console.log(title)
 
-
-    const sortPopularity = document.querySelector(".popularity")
-    const sortDate = document.querySelector(".date")
+    const sort = document.querySelector(".sort")
+    const sortPopularity = document.querySelector(".sort-popularity")
+    const sortDate = document.querySelector(".sort-date")
     const sortTitle = document.querySelector(".sort-title")
+    const sortOption = document.querySelector(".sort-option")
+
     let expended = false;
+    let sortIndex = 0
     const sortButtons = [
       {
         button: sortPopularity,
@@ -270,13 +258,54 @@ function displayData(data) {
         sens: 1
       }]
 
-    sortButtons.map(element => {
+    const sortFunction = (element, index) => {
+      console.log(index, sortIndex)
+      element.sens *= -1;
+      const div = document.querySelector('.grid-photograph');
+      const list = [...div.querySelectorAll('.list-photograph')];
+      list.map(elem => div.removeChild(elem));
+      Sens.likes = -Sens.likes; element.sort(list, element.sens);
+      list.map(elem => div.appendChild(elem));
+      sortButtons.map(b => {
+        b.button.classList.add("hide", "hide-img")
+        b.button.classList.remove("border");
+      })
+      element.button.classList.remove("hide", "hide-img")
+      expended = false;
+      sortIndex = index;
+    }
+
+    sortOption.onkeydown = event => {
+
+      switch (event.key) {
+        case "Enter":
+          event.preventDefault()
+          sortFunction(sortButtons[sortIndex], sortIndex)
+          break
+
+        case "ArrowUp":
+          event.preventDefault()
+          sortIndex = (sortIndex + 1) % sortButtons.length
+          sortFunction(sortButtons[sortIndex], sortIndex)
+          break
+
+        case "ArrowDown":
+          event.preventDefault()
+          sortIndex = (sortIndex - 1 + sortButtons.length) % sortButtons.length
+          sortFunction(sortButtons[sortIndex], sortIndex)
+          break
+      }
+
+    }
+
+    sortButtons.map((element, index) => {
       const button = element.button;
       button.addEventListener("click", function (event) {
         event.preventDefault()
 
         // open drop down menu
         if (!expended) {
+          sortOption.classList.add("zindex")
           sortButtons.map(b => {
             b.button.classList.remove("hide"), b.button.classList.add("hide-img")
           })
@@ -286,22 +315,13 @@ function displayData(data) {
           })
           expended = true;
         } else {
-          element.sens *= -1;
-          const div = document.querySelector('.grid-photograph');
-          const list = [...div.querySelectorAll('.list-photograph')];
-          list.map(elem => div.removeChild(elem));
-          Sens.likes = -Sens.likes; element.sort(list, element.sens);
-          list.map(elem => div.appendChild(elem));
-          sortButtons.map(b => {
-            b.button.classList.add("hide", "hide-img")
-            b.button.classList.remove("border");
-          })
-          button.classList.remove("hide", "hide-img")
-          expended = false;
+          sortFunction(element, index)
+          sortOption.classList.remove("zindex")
         }
       }
       )
     })
+
   }
 
 }
@@ -314,7 +334,3 @@ function init() {
 };
 
 init();
-
-document.addEventListener("keydown", e => {
-  console.log(e)
-})

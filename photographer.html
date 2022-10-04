@@ -13,35 +13,33 @@
 
 <body>
   <header>
-    <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="Lien vers page d'accueil" /></a>
+    <a href="./index.html" tabindex="1"><img src="assets/images/logo.png" class="logo" alt="Lien vers page d'accueil"
+        aria-label="Logo du site - lien vers page d'accueil" /></a>
   </header>
-  <main id="main">
+  <main id="main" aria-hidden="">
     <div class="photograph-header">
-      <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <button class="contact_button" onclick="displayModal()" tabindex="1"
+        aria-label="Contactez-moi">Contactez-moi</button>
     </div>
     <div class="photo-wrapper">
       <div class="sort">
         <p>Trier par</p>
-        <ul class="sort-option">
-          <a href="">
-            <li class="popularity">Popularité <img src="assets/icons/arrow-white.svg" class="arrow" /></li>
-          </a>
-          <a href="" aria-describedby="date">
+        <ul class="sort-option" tabindex="1">
+          <!-- TODO rajouter s -->
+          <li class="sort-popularity">Popularité <img src="assets/icons/arrow-white.svg" class="arrow" /></li>
+          <li class="border sort-date hide hide-img" id="date">Date <img src="assets/icons/arrow-white.svg"
+              class="arrow" />
+          </li>
+          <li class="border sort-title hide hide-img">Titre <img src="assets/icons/arrow-white.svg" class="arrow" />
+          </li>
 
-            <li class="border date hide hide-img" id="date">Date <img src="assets/icons/arrow-white.svg"
-                class="arrow" /></li>
-          </a>
-          <a href="">
-            <li class="border sort-title hide hide-img">Titre <img src="assets/icons/arrow-white.svg" class="arrow" />
-            </li>
-          </a>
         </ul>
 
       </div>
     </div>
   </main>
-  <div id="contact_modal">
-    <div class="modal" aria-hidden="true" role="dialog" aria-describedby="modal-title">
+  <div id="contact_modal" tabindex="1" aria-hidden="true">
+    <div class="modal" role="dialog" aria-describedby="modal-title">
       <div class="modal-data">
         <header class="modal-title">
           <button class="close-button">
@@ -50,15 +48,18 @@
         </header>
         <form>
           <div>
-            <label>Prénom</label>
-            <input class="modal-text" type="text" id="firstname" name="firstname" for="firstname"
-              arial-label="prénom" />
-            <label>Nom</label>
-            <input class="modal-text" type="text" id="name" name="name" />
-            <label>Email</label>
-            <input class="modal-text" type="email" id="email" name="email" />
-            <label>Votre message</label>
-            <input class="modal-message" type="text" id="message" name="message" />
+            <label class="margin-top" id="prenom">Prénom</label>
+            <input class="modal-text" type="text" id="firstname" name="firstname" for="firstname" arial-label="prénom"
+              aria-describedby="prenom" />
+            <p class="error-msg"></p>
+            <label id="nom">Nom</label>
+            <input class="modal-text" type="text" id="name" name="name" aria-describedby="nom" />
+            <p class="error-msg"></p>
+            <label id="mail">Email</label>
+            <input class="modal-text" type="email" id="email" name="email" aria-describedby="mail" />
+            <p class="error-msg"></p>
+            <label id="msg">Votre message</label>
+            <input class="modal-message" type="text" id="message" name="message" aria-describedby="msg" />
           </div>
           <button class="contact_button">Envoyer</button>
         </form>
