@@ -101,6 +101,10 @@ form label {
     font-size: 36px;
 }
 
+input {
+  font-size: 26px;
+}
+
 .margin-top {
   margin-top: 30px;
 }
@@ -134,11 +138,16 @@ main {
  align-content: center;
 }
 
+.name {
+  color: #D3573C
+}
+
 .photograph-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 .photograph-header {
   margin-bottom: 200px;

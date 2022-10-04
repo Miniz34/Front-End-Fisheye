@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <link href="./css/style.css" rel="stylesheet" type="text/css" />
@@ -26,11 +26,14 @@
         <p>Trier par</p>
         <ul class="sort-option" tabindex="1">
           <!-- TODO rajouter s -->
-          <li class="sort-popularity">Popularité <img src="assets/icons/arrow-white.svg" class="arrow" /></li>
-          <li class="border sort-date hide hide-img" id="date">Date <img src="assets/icons/arrow-white.svg"
-              class="arrow" />
+          <li class="sort-popularity" alt="tri par">Popularité <img src="assets/icons/arrow-white.svg" class="arrow"
+              alt="flêche vers le haut" />
           </li>
-          <li class="border sort-title hide hide-img">Titre <img src="assets/icons/arrow-white.svg" class="arrow" />
+          <li class="border sort-date hide hide-img" id="date">Date <img src="assets/icons/arrow-white.svg"
+              class="arrow" alt="flêche vers le haut" />
+          </li>
+          <li class="border sort-title hide hide-img">Titre <img src="assets/icons/arrow-white.svg" class="arrow"
+              alt="flêche vers le haut" />
           </li>
 
         </ul>
@@ -39,26 +42,26 @@
     </div>
   </main>
   <div id="contact_modal" tabindex="1" aria-hidden="true">
-    <div class="modal" role="dialog" aria-describedby="modal-title">
+    <div class="modal" role="dialog">
       <div class="modal-data">
         <header class="modal-title">
           <button class="close-button">
-            <img src="assets/icons/close.svg" onclick="closeModal()" />
+            <img src="assets/icons/close.svg" onclick="closeModal()" alt="croix fermer modal" />
           </button>
         </header>
         <form>
           <div>
-            <label class="margin-top" id="prenom">Prénom</label>
+            <label id="prenom" class="margin-top" for="firstname">Prénom</label>
             <input class="modal-text" type="text" id="firstname" name="firstname" for="firstname" arial-label="prénom"
               aria-describedby="prenom" />
             <p class="error-msg"></p>
-            <label id="nom">Nom</label>
+            <label id="nom" for="name">Nom</label>
             <input class="modal-text" type="text" id="name" name="name" aria-describedby="nom" />
             <p class="error-msg"></p>
-            <label id="mail">Email</label>
+            <label id="mail" for="email">Email</label>
             <input class="modal-text" type="email" id="email" name="email" aria-describedby="mail" />
             <p class="error-msg"></p>
-            <label id="msg">Votre message</label>
+            <label id="msg" for="message">Votre message</label>
             <input class="modal-message" type="text" id="message" name="message" aria-describedby="msg" />
           </div>
           <button class="contact_button">Envoyer</button>

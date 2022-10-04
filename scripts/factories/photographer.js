@@ -1,7 +1,8 @@
+//Header photographe page du photographe
 export const getUserCardDOM = (p) => {
   const article = document.createElement('div');
   article.classList.add("header-1")
-  article.innerHTML = `<h2>${p.name}</h2>
+  article.innerHTML = `<h1 class="name">${p.name}</h1>
                         <p>${p.city}, ${p.country}</p>
                         <span>${p.tagline}</span>`
 
@@ -31,24 +32,23 @@ export const getOverlayPrice = (p) => {
   const overlayPrice = document.createElement('div')
   overlayPrice.innerHTML = `<div class= "overlay-like-price" inert>
   <span id="totalLikes"></span>
-  <span><img class="black-heart" src="assets/icons/heart-black.svg"/></span>
+  <span><img class="black-heart" src="assets/icons/heart-black.svg" alt="coeur total like"/></span>
   <span>${p.price}€ / jour</span>
   </div>`
   return (overlayPrice)
 }
 
 
-// const newArticle = document.createElement("div")
-// newArticle.classList.add(".header-2")
-// newArticle.innerHTML = `<p>hello</p>`
 
+//Affichage données photographes page d'accueil
 export const getUserCardDOMIndex = (p) => {
   const picture = `assets/photographers/${p.portrait}`;
   const article = document.createElement('article');
   article.innerHTML = `<img src=${picture} alt="miniature de ${p.name}">
                         <h2><a href=./photographer.html?id=${p.id}>${p.name}</a></h2>
                         <p>${p.city}, ${p.country}</p>
-                        <span>${p.tagline}</span>`
+                        <span>${p.tagline}</span>
+                        <span class="price">${p.price}€/jour</span>`
   return (article);
 }
 

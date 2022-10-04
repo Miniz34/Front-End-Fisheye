@@ -2,7 +2,6 @@ import { getPhotographers } from "../utils/database.js"
 import { photographerFactory, getUserCardDOM, getUserCardPicture, getNameModal, getOverlayPrice } from "../factories/photographer.js"
 import { mediaFactory } from '../factories/media.js'
 import lightbox from "../utils/lightbox.js";
-import likes from "../utils/likes.js"
 
 const params = (new URL(document.location)).searchParams;
 const id = params.get("id")
@@ -225,7 +224,6 @@ function displayData(data) {
 
   function sortData(data) {
 
-    const div = document.querySelector('.grid-photograph');
     let media = data.media
     console.log(media)
     let thisMedia = media.filter(k => k.photographerId == id)
@@ -235,7 +233,6 @@ function displayData(data) {
     });
     console.log(title)
 
-    const sort = document.querySelector(".sort")
     const sortPopularity = document.querySelector(".sort-popularity")
     const sortDate = document.querySelector(".sort-date")
     const sortTitle = document.querySelector(".sort-title")
@@ -320,6 +317,17 @@ function displayData(data) {
         }
       }
       )
+    })
+
+    sortOption.addEventListener("blur", event => {
+      if (expended) {
+        sortButtons.map(b => {
+          b.button.classList.add("hide", "hide-img")
+          b.button.classList.remove("border");
+        })
+        sortButtons[sortIndex].button.classList.remove("hide", "hide-img")
+        expended = false;
+      }
     })
 
   }

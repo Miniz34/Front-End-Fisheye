@@ -13,15 +13,15 @@ const LightBox = {
     element.setAttribute('aria-hidden', true);
     element.tabIndex = 1
     element.innerHTML = `
-      <button class="lightbox-close" aria-label = "Fermer lightbox"><img src="assets/icons/close-red.svg" /></button>
-      <button class="lightbox-next" aria-label = "photo suivante"> <img src="assets/icons/arrow.svg" /></button>
-      <button class="lightbox-prev" aria-label = "photo précédante"> <img src="assets/icons/arrow.svg" /></button>
+      <button class="lightbox-close" aria-label = "Fermer lightbox"><img src="assets/icons/close-red.svg" alt = "Fermer lightbox" /></button>
+      <button class="lightbox-next" aria-label = "photo suivante"> <img src="assets/icons/arrow.svg" alt = "photo suivante" /></button>
+      <button class="lightbox-prev" aria-label = "photo précédante"> <img src="assets/icons/arrow.svg" alt = "photo précédante" /></button>
       <div class="lightbox-container">
       <div class="lightbox-content">
-        <img src=""  id="lightbox-img">
+        <img src=""  id="lightbox-img" alt="Média">
         
         <video src=""  id="lightbox-video" controls autoplay></video>
-        <h2 class="lightbox-title"></h2>
+        <h2 class="lightbox-title">média : </h2>
         </div>
       </div>
       
