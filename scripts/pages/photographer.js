@@ -3,10 +3,12 @@ import { photographerFactory, getUserCardDOM, getUserCardPicture, getNameModal, 
 import { mediaFactory } from '../factories/media.js'
 import lightbox from "../utils/lightbox.js";
 
+
 const params = (new URL(document.location)).searchParams;
 const id = params.get("id")
 
 
+//Gestion des likes
 const likesMedia = (media) => {
 
   const likesLS = localStorage.getItem("likes")
@@ -16,7 +18,6 @@ const likesMedia = (media) => {
     localStorage.setItem("likes", JSON.stringify([media.id]))
     return
   }
-
   const likesArray = JSON.parse(likesLS)
   const obj = likesArray.find(e => e === media.id)
   if (!obj) {
@@ -32,29 +33,23 @@ const likesMedia = (media) => {
   localStorage.setItem("likes", JSON.stringify(likesArray))
 }
 
+
+
+//Affichage photographe unique
 function displayPhotographer(data) {
   const photographersHeader = document.querySelector(".photograph-header")
-  // console.log(photographersHeader)
-
   const test = document.querySelector(".contact_button")
-
-  // data.photographers.map((photographer)
-  // console.log(data)
-
   let mainPhotographer = data.photographers
   let thisPhotographer = mainPhotographer.find(e => e.id == id)
-  // console.log(thisPhotographer)
-
   const photographerModel = photographerFactory(thisPhotographer);
-  // console.log(photographerModel)
   const userPhotographer = getUserCardDOM(photographerModel);
   const userPicture = getUserCardPicture(photographerModel)
   photographersHeader.insertBefore(userPhotographer, test);
   photographersHeader.appendChild(userPicture)
-
-
 }
 
+
+//Affichage Overlay
 function displayOverlay(data) {
   const photographer = document.querySelector("body")
   console.log(photographer)
@@ -67,6 +62,8 @@ function displayOverlay(data) {
 
 }
 
+
+//Affichage total like Overlay
 function displayTotalLikes(data) {
   let mainPhotos = data.media
   let allLikes = mainPhotos.filter(j => j.photographerId == id)
@@ -76,16 +73,12 @@ function displayTotalLikes(data) {
     return likesCount
   })
   const overlayLikes = totalLikes[totalLikes.length - 1]
-  // const LS = localStorage.getItem("likes")
-  // let lsValue = LS.split(',');
-  // console.log(lsValue.length)
   let domLikes = document.getElementById("totalLikes")
   domLikes.innerHTML = overlayLikes
 }
 
-
+//Affichage nom modal
 function displayNameModal(data) {
-
   const modalTitle = document.querySelector(".modal-title")
   const closeButton = document.querySelector(".close-button")
   let mainPhotographer = data.photographers
@@ -96,23 +89,21 @@ function displayNameModal(data) {
   modalTitle.insertBefore(userModal, closeButton)
 }
 
+
+
 let LIKES = 0;
+
+//Affichage medias (photos et vidéos)
 function displayMedia(data) {
-  // data.date = new Date(data.date)
   const photographersSection = document.querySelector(".photo-wrapper");
-  // data.photographers.map((photographer)
-  // console.log(data)
   let allPortfolio = data.media
-  // console.log(allPortfolio)
   let thisPortfolio = allPortfolio.filter(i => i.photographerId == id)
-  // console.log(thisPortfolio)
   const div = document.createElement('div');
   div.classList.add("grid-photograph")
   photographersSection.appendChild(div);
   const likesLS = localStorage.getItem("likes");
   const likesArray = likesLS ? JSON.parse(likesLS) : [];
   console.log(likesArray)
-
   thisPortfolio.map((media) => {
     if (likesArray.find(e => e === media.id)) {
       console.log("found")
@@ -132,7 +123,6 @@ function displayMedia(data) {
     }
     div.appendChild(userCardDOM);
     LIKES += media.likes
-
   })
 }
 
@@ -144,7 +134,7 @@ let title = []
 
 const MAP_MEDIA = new Map();
 
-// by date
+// Fonction tri par date
 const sortByDate = (list, order = 1) => {
   return list.sort((a, b) => {
     const ma = MAP_MEDIA.get("" + a.id).date
@@ -153,7 +143,7 @@ const sortByDate = (list, order = 1) => {
   })
 }
 
-// by likes
+// Fonction tri par like
 const sortByLikes = (list, order = 1) => {
   return list.sort((a, b) => {
     const ma = MAP_MEDIA.get("" + a.id).likes
@@ -162,7 +152,7 @@ const sortByLikes = (list, order = 1) => {
   })
 }
 
-// by title
+// Fonction tri par title
 const sortByTitle = (list, order = 1) => {
   console.log(MAP_MEDIA.get("" + list[0].id))
 
@@ -179,6 +169,8 @@ const Sens = {
   likes: 1
 }
 
+
+//Fonction affichage page entière
 function displayData(data) {
   displayPhotographer(data);
   displayMedia(data);
@@ -195,9 +187,8 @@ function displayData(data) {
 
 
 
-  // displayImgLightbox(data);
 
-  // ici tout est chargé
+  // Page entièrement load après ce point
   lightbox.addListeners(document.querySelectorAll(".thumbnail-image"))
   lightbox.next(document.querySelector(".lightbox-next"))
   lightbox.previous(document.querySelector(".lightbox-prev"))
@@ -222,6 +213,8 @@ function displayData(data) {
     }
   })
 
+
+  //Fonction de tri général
   function sortData(data) {
 
     let media = data.media

@@ -1,4 +1,6 @@
 
+//Affichage des médias avec différenciation images/vidéos
+
 export const mediaFactory = (p) => {
   if (!p.hasOwnProperty("title")) console.error("MEDIA PAS BON", p)
   const SRC_URL = `./assets/images/`;

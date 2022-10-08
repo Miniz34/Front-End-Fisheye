@@ -5,12 +5,11 @@ export const getUserCardDOM = (p) => {
   article.innerHTML = `<h1 class="name">${p.name}</h1>
                         <p>${p.city}, ${p.country}</p>
                         <span>${p.tagline}</span>`
-
-
-
   return (article)
 }
 
+
+//Affichage miniature photographe page photographe
 export const getUserCardPicture = (p) => {
   const picture = `assets/photographers/${p.portrait}`;
   const article = document.createElement('div');
@@ -20,14 +19,16 @@ export const getUserCardPicture = (p) => {
   return (article)
 }
 
+
+//Affichage nom modal
 export const getNameModal = (p) => {
   const nameModal = document.createElement('h2')
   nameModal.innerHTML = `Contactez moi <br>${p.name}`
-
   return (nameModal)
-
 }
 
+
+//Affichage overlay
 export const getOverlayPrice = (p) => {
   const overlayPrice = document.createElement('div')
   overlayPrice.innerHTML = `<div class= "overlay-like-price" inert>
@@ -53,7 +54,6 @@ export const getUserCardDOMIndex = (p) => {
 }
 
 export const photographerFactory = (photographerData) => {
-  // const { name, portrait, city, tagline } = data;
   console.log(photographerData)
   return { ...photographerData, picture: `assets/photographers/${photographerData.portrait}` }
 }

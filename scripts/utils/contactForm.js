@@ -4,8 +4,9 @@ const header = document.querySelector("header");
 
 const closeButton = document.querySelector(".close-button");
 
-function displayModal() {
 
+
+function displayModal() {
 
   modal.style.display = "block";
   main.style.opacity = 0.3
