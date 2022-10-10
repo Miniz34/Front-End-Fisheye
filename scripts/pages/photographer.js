@@ -9,6 +9,9 @@ const id = params.get("id")
 
 
 //Gestion des likes
+
+
+let LIKES = 0;
 const likesMedia = (media) => {
 
   const likesLS = localStorage.getItem("likes")
@@ -91,12 +94,13 @@ function displayNameModal(data) {
 
 
 
-let LIKES = 0;
+
 
 //Affichage medias (photos et vidéos)
 function displayMedia(data) {
   const photographersSection = document.querySelector(".photo-wrapper");
   let allPortfolio = data.media
+  console.log(allPortfolio)
   let thisPortfolio = allPortfolio.filter(i => i.photographerId == id)
   const div = document.createElement('div');
   div.classList.add("grid-photograph")

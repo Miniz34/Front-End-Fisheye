@@ -19,13 +19,12 @@ const LightBox = {
       <div class="lightbox-container">
       <div class="lightbox-content">
         <img src=""  id="lightbox-img" alt="Média">
-        
         <video src=""  id="lightbox-video" controls autoplay></video>
         <h2 class="lightbox-title">média : </h2>
         </div>
       </div>
-      
-      
+
+
       `
     element.style.display = "none";
     element.querySelector(".lightbox-close").onclick = (event) => { LightBox.close(); }
@@ -81,6 +80,22 @@ const LightBox = {
     header.removeAttribute("inert")
   },
 
+
+
+  arrayImg: (pFileName) => {
+    const array = [...document.querySelectorAll(".thumbnail-image")];
+    LightBox.list = array.map((elem, index) => {
+      const fileName = elem.src.split('/').slice(-1)[0];
+      console.log(pFileName)
+      console.log(fileName)
+      console.log(LightBox.index)
+      const fileTitle = elem.getAttribute("alt");
+      if (fileName === pFileName) LightBox.index = index
+      return { src: fileName, type: elem.tagName, title: fileTitle }
+    });
+  },
+
+
   addListeners: (selectors, callback = (event, item) => { console.log(item.src); }) => {
     [...selectors].map(item => {
       item.onclick = item.onkeydown = event => {
@@ -100,18 +115,8 @@ const LightBox = {
 
 
 
-  ////mon nouveau "code"
 
-  arrayImg: (pFileName) => {
-    const array = [...document.querySelectorAll(".thumbnail-image")];
-    LightBox.list = array.map((elem, index) => {
-      const fileName = elem.src.split('/').slice(-1)[0];
-      const fileTitle = elem.getAttribute("alt");
 
-      if (fileName === pFileName) LightBox.index = index
-      return { src: fileName, type: elem.tagName, title: fileTitle }
-    });
-  },
 
   next: (nextButton) => {
     // const hello = LightBox.arrayImg()

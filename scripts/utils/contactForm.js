@@ -5,7 +5,7 @@ const header = document.querySelector("header");
 const closeButton = document.querySelector(".close-button");
 
 
-
+//Ouvrir modal
 function displayModal() {
 
   modal.style.display = "block";
@@ -22,6 +22,8 @@ function displayModal() {
 
 }
 
+
+//Fermer modal
 function closeModal() {
   const modal = document.getElementById("contact_modal");
   const main = document.querySelector("#main");
@@ -38,12 +40,15 @@ function closeModal() {
   modal.setAttribute("aria-modal", "false")
 }
 
+
+//DOM input
 const firstName = document.querySelector("#firstname")
 const lastName = document.querySelector("#name")
 const email = document.querySelector("#email")
 const message = document.querySelector("#message")
 
 
+//Submit avec log des données
 let submit = document.querySelectorAll(".contact_button")[1];
 console.log(submit)
 submit.addEventListener('click', (event) => {
