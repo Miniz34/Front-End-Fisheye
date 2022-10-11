@@ -17,7 +17,6 @@ function displayModal() {
   modal.setAttribute("aria-modal", "true")
   header.style.opacity = 0.3
   modal.setAttribute('aria-hidden', 'false')
-  main.setAttribute('aria-hidden', 'true')
   closeButton.focus()
 
 }
@@ -27,14 +26,11 @@ function displayModal() {
 function closeModal() {
   const modal = document.getElementById("contact_modal");
   const main = document.querySelector("#main");
-
   modal.style.display = "none";
   main.style.opacity = 1
   header.style.opacity = 1
   main.removeAttribute("inert")
   header.removeAttribute("inert")
-
-  header.setAttribute("inert", "false")
   modal.setAttribute('aria-hidden', 'true')
   main.setAttribute('aria-hidden', 'false')
   modal.setAttribute("aria-modal", "false")
