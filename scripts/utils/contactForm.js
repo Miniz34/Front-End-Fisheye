@@ -58,7 +58,7 @@ submit.addEventListener('click', (event) => {
 
 document.addEventListener("keydown", e => {
   if (modal.style.display === "block" && e.key === "Escape") {
-    console.log("modal ouverte")
+    console.log("modal fermée")
     closeModal()
   }
 })
