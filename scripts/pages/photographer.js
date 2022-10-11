@@ -22,6 +22,7 @@ const likesMedia = (media) => {
     return
   }
   const likesArray = JSON.parse(likesLS)
+  console.log(likesArray)
   const obj = likesArray.find(e => e === media.id)
   if (!obj) {
     media.likes++
@@ -218,17 +219,8 @@ function displayData(data) {
   })
 
 
-  //Fonction de tri général
-  function sortData(data) {
 
-    let media = data.media
-    console.log(media)
-    let thisMedia = media.filter(k => k.photographerId == id)
-    console.log(thisMedia)
-    thisMedia.forEach(element => {
-      title.push(element.title)
-    });
-    console.log(title)
+  function sortData(data) {
 
     const sortPopularity = document.querySelector(".sort-popularity")
     const sortDate = document.querySelector(".sort-date")
