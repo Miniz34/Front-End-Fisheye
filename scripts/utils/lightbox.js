@@ -113,14 +113,7 @@ const LightBox = {
     })
   },
 
-
-
-
-
-
   next: (nextButton) => {
-    // const hello = LightBox.arrayImg()
-    // console.log(hello)
     nextButton.onclick = event => {
       LightBox.index++;
       if (LightBox.index >= LightBox.list.length) LightBox.index = 0;
@@ -130,8 +123,7 @@ const LightBox = {
   },
 
   previous: (previousButton) => {
-    // const hello = LightBox.arrayImg()
-    // console.log(hello)
+
     previousButton.onclick = event => {
       console.log("press boutton")
       LightBox.index--;

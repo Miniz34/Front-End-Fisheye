@@ -153,14 +153,14 @@ const sortByLikes = (list, order = 1) => {
   return list.sort((a, b) => {
     const ma = MAP_MEDIA.get("" + a.id).likes
     const mb = MAP_MEDIA.get("" + b.id).likes
-    return (ma - mb) * order;
+    console.log(ma - mb)
+    console.log(order)
+    return (ma - mb) * order
   })
 }
 
 // Fonction tri par title
 const sortByTitle = (list, order = 1) => {
-  console.log(MAP_MEDIA.get("" + list[0].id))
-
   return list.sort((a, b) => {
     const ma = MAP_MEDIA.get("" + a.id).title;
     const mb = MAP_MEDIA.get("" + b.id).title;
@@ -245,12 +245,12 @@ function displayData(data) {
       }]
 
     const sortFunction = (element, index) => {
-      console.log(index, sortIndex)
       element.sens *= -1;
       const div = document.querySelector('.grid-photograph');
       const list = [...div.querySelectorAll('.list-photograph')];
       list.map(elem => div.removeChild(elem));
-      Sens.likes = -Sens.likes; element.sort(list, element.sens);
+      // Sens.likes = -Sens.likes; 
+      element.sort(list, element.sens);
       list.map(elem => div.appendChild(elem));
       sortButtons.map(b => {
         b.button.classList.add("hide", "hide-img")
@@ -273,6 +273,7 @@ function displayData(data) {
           event.preventDefault()
           sortIndex = (sortIndex + 1) % sortButtons.length
           sortFunction(sortButtons[sortIndex], sortIndex)
+          console.log(sortIndex)
           break
 
         case "ArrowDown":
