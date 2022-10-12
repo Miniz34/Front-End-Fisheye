@@ -153,8 +153,6 @@ const sortByLikes = (list, order = 1) => {
   return list.sort((a, b) => {
     const ma = MAP_MEDIA.get("" + a.id).likes
     const mb = MAP_MEDIA.get("" + b.id).likes
-    console.log(ma - mb)
-    console.log(order)
     return (ma - mb) * order
   })
 }
@@ -200,7 +198,6 @@ function displayData(data) {
 
   document.addEventListener("keydown", e => {
     if (lightbox.opened()) {
-      console.log("light")
       switch (e.key.toLowerCase()) {
         case "arrowleft":
           e.preventDefault()
